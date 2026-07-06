@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Học từ vựng &amp; Kanji tiếng Nhật</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="eyebrow">
+      <span class="eyebrow-jp">未来は今日からつくられる。</span>
+      <span class="eyebrow-vi">Tương lai được tạo ra từ ngày hôm nay.</span>
+    </div>
+    <h1 class="jp">語彙 <span style="font-size:20px; color:var(--ink-soft); font-family:'Be Vietnam Pro',sans-serif;">Từ vựng &amp; Kanji</span></h1>
+    <p>Chọn mục Từ vựng hoặc Kanji, sau đó chọn bài và luyện bằng Flashcard hoặc Trắc nghiệm.</p>
+  </header>
+
+  <!-- ================= VIEW 1: DANH SÁCH BÀI ================= -->
+  <section id="view-list" class="panel">
+    <div class="panel-head">
+      <h2 class="panel-title">Danh sách bài <span class="level-badge">N4</span></h2>
+    </div>
+
+    <div class="seg" id="category-toggle" style="margin-bottom:22px;">
+      <button data-cat="vocab" class="active">📚 Từ vựng</button>
+      <button data-cat="kanji">漢字 Kanji</button>
+    </div>
+
+    <div id="lesson-grid" class="lesson-grid"></div>
+    <div id="empty-lessons" class="empty hidden">
+      <div class="icon">⛩️</div>
+      <div id="empty-text">Chưa có bài nào. Thêm file dữ liệu vào thư mục <code>data/</code> để bắt đầu.</div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 2: CHỌN CHẾ ĐỘ HỌC ================= -->
+  <section id="view-mode" class="panel hidden">
+    <div class="panel-head">
+      <div>
+        <button class="back-link" data-back="list">← Danh sách bài</button>
+        <h2 id="mode-lesson-title" style="margin-top:6px;">Chọn chế độ học</h2>
+      </div>
+    </div>
+
+    <div class="mode-grid">
+      <div class="mode-card flash">
+        <h3>🎴 Flashcard</h3>
+        <p id="mode-flash-desc">Lật thẻ để xem đáp án. Phù hợp để làm quen nội dung mới.</p>
+        <button class="btn indigo" data-start="flashcard">Bắt đầu Flashcard</button>
+      </div>
+      <div class="mode-card quiz">
+        <h3>📝 Trắc nghiệm</h3>
+        <p id="mode-quiz-desc">Chọn đáp án đúng trong 4 lựa chọn. Kiểm tra nhanh mức độ ghi nhớ.</p>
+        <button class="btn matcha" data-start="quiz">Bắt đầu Trắc nghiệm</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 3: FLASHCARD TỪ VỰNG ================= -->
+  <section id="view-flashcard" class="panel hidden">
+    <div class="panel-head">
+      <div>
+        <button class="back-link" data-back="mode">← Chọn chế độ</button>
+        <h2 id="fc-lesson-title" style="margin-top:6px;">Flashcard</h2>
+      </div>
+      <button class="icon-btn" id="fc-shuffle" title="Xáo bài">⟲</button>
+    </div>
+
+    <div class="fc-progress">
+      <span id="fc-position">1 / 20</span>
+      <span id="fc-known-count">Đã thuộc: 0</span>
+    </div>
+
+    <div class="fc-stage">
+      <div class="fc-card" id="fc-card">
+        <div class="fc-face front">
+          <span class="fc-type" id="fc-type-front"></span>
+          <div class="fc-stamp" id="fc-stamp-front">既知</div>
+          <div class="fc-word" id="fc-front-main"></div>
+          <div class="fc-front-kanji" id="fc-front-kanji"></div>
+          <div class="fc-hint">Bấm để xem đáp án</div>
+        </div>
+        <div class="fc-face back">
+          <span class="fc-type" id="fc-type-back"></span>
+          <div class="fc-stamp" id="fc-stamp-back">既知</div>
+          <div class="fc-word" id="fc-back-word"></div>
+          <div class="fc-reading" id="fc-back-reading"></div>
+          <div class="fc-meaning" id="fc-back-meaning"></div>
+          <div class="fc-note" id="fc-back-note"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <div class="side-btns">
+        <button class="icon-btn" id="fc-prev">←</button>
+        <button class="icon-btn" id="fc-next">→</button>
+      </div>
+      <div class="mark-btns">
+        <button class="unknown" id="fc-mark-unknown">Chưa thuộc</button>
+        <button class="known" id="fc-mark-known">Đã thuộc</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 4: TRẮC NGHIỆM TỪ VỰNG ================= -->
+  <section id="view-quiz" class="panel hidden">
+    <div class="panel-head">
+      <div>
+        <button class="back-link" data-back="mode">← Chọn chế độ</button>
+        <h2 id="quiz-lesson-title" style="margin-top:6px;">Trắc nghiệm</h2>
+      </div>
+    </div>
+
+    <div id="quiz-question-wrap">
+      <div class="quiz-top">
+        <span id="quiz-position">Câu 1 / 20</span>
+        <span id="quiz-score">Điểm: 0</span>
+      </div>
+      <div class="quiz-q">
+        <span class="fc-type" id="quiz-type"></span>
+        <div class="qword" id="quiz-word"></div>
+        <div class="fc-front-kanji" id="quiz-word-kanji"></div>
+        <div class="qsub">Chọn nghĩa đúng</div>
+      </div>
+      <div class="quiz-options" id="quiz-options"></div>
+      <div class="quiz-footer">
+        <button class="btn indigo" id="quiz-next" style="width:auto;" disabled>Câu tiếp →</button>
+      </div>
+    </div>
+
+    <div id="quiz-result" class="result hidden">
+      <div style="color:var(--ink-soft); font-size:13px;">Kết quả</div>
+      <div class="score" id="result-score">0/20</div>
+      <div class="best" id="result-best"></div>
+      <div class="result-actions">
+        <button class="btn ghost" data-back="mode">Chọn chế độ khác</button>
+        <button class="btn matcha" style="width:auto;" id="quiz-retry">Làm lại</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 5: FLASHCARD KANJI ================= -->
+  <section id="view-kanji-flashcard" class="panel hidden">
+    <div class="panel-head">
+      <div>
+        <button class="back-link" data-back="mode">← Chọn chế độ</button>
+        <h2 id="kf-lesson-title" style="margin-top:6px;">Flashcard Kanji</h2>
+      </div>
+      <button class="icon-btn" id="kf-shuffle" title="Xáo bài">⟲</button>
+    </div>
+
+    <div class="fc-progress">
+      <span id="kf-position">1 / 11</span>
+      <span id="kf-known-count">Đã thuộc: 0</span>
+    </div>
+
+    <div class="fc-stage">
+      <div class="fc-card" id="kf-card">
+        <div class="fc-face front">
+          <div class="fc-stamp" id="kf-stamp-front">既知</div>
+          <div class="fc-kanji-char" id="kf-front-char"></div>
+          <div class="fc-hint">Bấm để xem đáp án</div>
+        </div>
+        <div class="fc-face back kanji-back">
+          <div class="fc-stamp" id="kf-stamp-back">既知</div>
+          <div class="kanji-hanviet" id="kf-back-hanviet"></div>
+          <div class="yomi-row"><span class="yomi-label">音</span><span id="kf-back-onyomi"></span></div>
+          <div class="yomi-row"><span class="yomi-label">訓</span><span id="kf-back-kunyomi"></span></div>
+          <div class="kanji-examples" id="kf-back-examples"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-controls">
+      <div class="side-btns">
+        <button class="icon-btn" id="kf-prev">←</button>
+        <button class="icon-btn" id="kf-next">→</button>
+      </div>
+      <div class="mark-btns">
+        <button class="unknown" id="kf-mark-unknown">Chưa thuộc</button>
+        <button class="known" id="kf-mark-known">Đã thuộc</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= VIEW 6: TRẮC NGHIỆM KANJI ================= -->
+  <section id="view-kanji-quiz" class="panel hidden">
+    <div class="panel-head">
+      <div>
+        <button class="back-link" data-back="mode">← Chọn chế độ</button>
+        <h2 id="kq-lesson-title" style="margin-top:6px;">Trắc nghiệm Kanji</h2>
+      </div>
+    </div>
+
+    <div id="kq-question-wrap">
+      <div class="quiz-top">
+        <span id="kq-position">Câu 1 / 11</span>
+        <span id="kq-score">Điểm: 0</span>
+      </div>
+      <div class="quiz-q">
+        <div class="fc-kanji-char" id="kq-char" style="font-size:56px;"></div>
+        <div class="qsub">Chọn nghĩa Hán Việt đúng</div>
+      </div>
+      <div class="quiz-options" id="kq-options"></div>
+      <div class="quiz-footer">
+        <button class="btn indigo" id="kq-next" style="width:auto;" disabled>Câu tiếp →</button>
+      </div>
+    </div>
+
+    <div id="kq-result" class="result hidden">
+      <div style="color:var(--ink-soft); font-size:13px;">Kết quả</div>
+      <div class="score" id="kq-result-score">0/11</div>
+      <div class="best" id="kq-result-best"></div>
+      <div class="result-actions">
+        <button class="btn ghost" data-back="mode">Chọn chế độ khác</button>
+        <button class="btn matcha" style="width:auto;" id="kq-retry">Làm lại</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ==== Dữ liệu Từ vựng ====
+     Thêm bài mới: copy data/lesson-example.js, đổi nội dung,
+     rồi thêm 1 dòng <script src="data/lesson-XX.js"></script> ở đây -->
+<script src="data/lesson-17a.js"></script>
+<script src="data/lesson-17b.js"></script>
+
+<!-- ==== Dữ liệu Kanji ====
+     Thêm bài mới: copy data/kanji-17.js, đổi nội dung,
+     rồi thêm 1 dòng <script src="data/kanji-XX.js"></script> ở đây -->
+<script src="data/kanji-17.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>

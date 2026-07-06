@@ -1,0 +1,591 @@
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --paper: #faf7f0;
+  --paper-raised: #ffffff;
+  --ink: #22303f;
+  --ink-soft: #5b6a78;
+  --indigo: #2f4858;
+  --indigo-deep: #1b2a38;
+  --hanko: #b33a3a;
+  --hanko-soft: #f4e0df;
+  --matcha: #5c7a52;
+  --matcha-soft: #e4ecdd;
+  --gold: #c89b3c;
+  --gold-soft: #f6ecd6;
+  --line: #ddd3bd;
+  --shadow: 0 8px 24px rgba(34, 48, 63, 0.08);
+  --radius: 16px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Be Vietnam Pro', sans-serif;
+  color: var(--ink);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(90deg, rgba(34,48,63,0.035) 1px, transparent 1px),
+    linear-gradient(rgba(34,48,63,0.035) 1px, transparent 1px);
+  background-size: 28px 28px;
+  min-height: 100vh;
+}
+
+.jp { font-family: 'Shippori Mincho', serif; }
+
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* ---------- Header ---------- */
+header.top {
+  margin-bottom: 32px;
+}
+header.top .eyebrow {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--hanko);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(179,58,58,0.08), rgba(200,155,60,0.08));
+  box-shadow: var(--shadow);
+  max-width: 100%;
+  color: var(--indigo-deep);
+}
+header.top .eyebrow-jp {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+  color: var(--hanko);
+  font-weight: 700;
+}
+header.top .eyebrow-vi {
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+header.top h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 34px;
+  margin: 10px 0 4px;
+  color: var(--indigo-deep);
+}
+header.top p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+/* ---------- Panels ---------- */
+.panel {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px;
+  margin-bottom: 24px;
+}
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.panel-head h2 {
+  font-size: 19px;
+  margin: 0;
+  color: var(--indigo-deep);
+}
+.panel-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.level-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(47,72,88,0.14), rgba(179,58,58,0.12));
+  border: 1px solid rgba(47,72,88,0.22);
+  color: var(--indigo-deep);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 10px rgba(34, 48, 63, 0.08);
+}
+.panel-head .back-link {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-size: 14px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.panel-head .back-link:hover { color: var(--indigo); }
+
+/* ---------- Empty state ---------- */
+.empty {
+  text-align: center;
+  padding: 40px 10px;
+  color: var(--ink-soft);
+}
+.empty .icon { font-size: 34px; margin-bottom: 10px; opacity: 0.5; }
+
+/* ---------- Lesson list ---------- */
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+.lesson-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 18px;
+  cursor: pointer;
+  background: var(--paper-raised);
+  position: relative;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  text-align: left;
+}
+.lesson-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--indigo);
+}
+.lesson-card .num {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 22px;
+  color: var(--indigo);
+}
+.lesson-card .title { font-weight: 600; margin-top: 4px; }
+.lesson-card .meta {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  justify-content: space-between;
+}
+.lesson-card .progress-bar {
+  height: 4px;
+  background: var(--line);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.lesson-card .progress-fill {
+  height: 100%;
+  background: var(--matcha);
+}
+
+/* ---------- Mode select ---------- */
+.hint {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  color: #6b5420;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13.5px;
+  margin-bottom: 20px;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+.toggle-row .label { font-size: 14px; color: var(--ink-soft); }
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.seg button {
+  border: none;
+  background: var(--paper-raised);
+  padding: 8px 14px;
+  font-size: 13.5px;
+  font-family: inherit;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+.seg button.active {
+  background: var(--indigo);
+  color: #fff;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.mode-card {
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid;
+}
+.mode-card.flash {
+  background: #eef2f6;
+  border-color: #c7d4de;
+}
+.mode-card.quiz {
+  background: var(--matcha-soft);
+  border-color: #c3d4b6;
+}
+.mode-card h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mode-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.btn {
+  border: none;
+  border-radius: 10px;
+  padding: 11px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  width: 100%;
+  color: #fff;
+  transition: opacity .15s ease;
+}
+.btn:hover { opacity: 0.9; }
+.btn.indigo { background: var(--indigo); }
+.btn.matcha { background: var(--matcha); }
+.btn.ghost {
+  background: transparent;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  width: auto;
+}
+
+/* ---------- Flashcard ---------- */
+.fc-progress {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+.fc-stage {
+  perspective: 1400px;
+  margin-bottom: 20px;
+}
+.fc-card {
+  position: relative;
+  height: 260px;
+  border-radius: 16px;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.fc-card.flipped { transform: rotateY(180deg); }
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+  background:
+    repeating-linear-gradient(var(--paper-raised) 0 39px, var(--line) 39px 40px),
+    repeating-linear-gradient(90deg, var(--paper-raised) 0 39px, var(--line) 39px 40px);
+  background-blend-mode: multiply;
+}
+.fc-face.back { transform: rotateY(180deg); }
+.fc-type {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .05em;
+  color: var(--indigo);
+  border: 1px solid var(--indigo);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+.fc-stamp {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2.5px solid var(--hanko);
+  color: var(--hanko);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 12px;
+  font-weight: 700;
+  transform: rotate(-12deg);
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.fc-stamp.show { opacity: 1; }
+.fc-word {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 40px;
+  color: var(--indigo-deep);
+}
+.fc-reading {
+  font-size: 15px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+.fc-meaning {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--indigo-deep);
+  margin-top: 10px;
+}
+.fc-note {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 10px;
+  max-width: 340px;
+}
+.fc-hint {
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-top: 14px;
+  opacity: .7;
+}
+
+.fc-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.fc-controls .side-btns { display: flex; gap: 8px; }
+.icon-btn {
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.icon-btn:hover { border-color: var(--indigo); }
+.mark-btns { display: flex; gap: 8px; }
+.mark-btns button {
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  padding: 10px 14px;
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+}
+.mark-btns button.known { color: var(--matcha); border-color: var(--matcha); }
+.mark-btns button.unknown { color: var(--hanko); border-color: var(--hanko); }
+.mark-btns button.active.known { background: var(--matcha-soft); }
+.mark-btns button.active.unknown { background: var(--hanko-soft); }
+
+/* ---------- Quiz ---------- */
+.quiz-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+.quiz-q {
+  text-align: center;
+  padding: 30px 10px 26px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  margin-bottom: 18px;
+  background:
+    repeating-linear-gradient(var(--paper-raised) 0 39px, var(--line) 39px 40px),
+    repeating-linear-gradient(90deg, var(--paper-raised) 0 39px, var(--line) 39px 40px);
+  background-blend-mode: multiply;
+  position: relative;
+}
+.quiz-q .fc-type { position: absolute; top: 12px; left: 12px; }
+.quiz-q .qword {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 36px;
+  color: var(--indigo-deep);
+}
+.quiz-q .qsub {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.opt-btn {
+  border: 1px solid var(--line);
+  background: var(--paper-raised);
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 14.5px;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.opt-btn:hover:not(:disabled) { border-color: var(--indigo); }
+.opt-btn.correct { background: var(--matcha-soft); border-color: var(--matcha); }
+.opt-btn.wrong { background: var(--hanko-soft); border-color: var(--hanko); }
+.opt-btn:disabled { cursor: default; opacity: .85; }
+
+.quiz-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ---------- Result ---------- */
+.result {
+  text-align: center;
+  padding: 20px 10px 6px;
+}
+.result .score {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 48px;
+  color: var(--indigo-deep);
+  margin: 6px 0;
+}
+.result .best {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 24px;
+}
+.result-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hidden { display: none !important; }
+
+@media (max-width: 560px) {
+  .mode-grid { grid-template-columns: 1fr; }
+  .quiz-options { grid-template-columns: 1fr; }
+  header.top h1 { font-size: 28px; }
+}
+
+/* ---------- Category toggle (Từ vựng / Kanji) ---------- */
+#category-toggle button {
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+/* ---------- Vocab card: kanji annotation next to reading ---------- */
+.fc-front-kanji {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 16px;
+  color: var(--ink-soft);
+  margin-top: 8px;
+  padding: 3px 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* ---------- Kanji flashcard ---------- */
+.fc-kanji-char {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 92px;
+  color: var(--indigo-deep);
+  line-height: 1;
+}
+.fc-face.kanji-back {
+  justify-content: flex-start;
+  padding-top: 34px;
+  overflow-y: auto;
+}
+.kanji-hanviet {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--hanko);
+  margin-bottom: 10px;
+}
+.yomi-row {
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.yomi-label {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--indigo);
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.kanji-examples {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  width: 100%;
+  text-align: left;
+}
+.kanji-example-item {
+  font-size: 13px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+.kanji-example-item .ex-word {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 700;
+  color: var(--indigo-deep);
+}
+.kanji-example-item .ex-reading {
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+.kanji-example-item .ex-meaning {
+  color: var(--ink);
+}
