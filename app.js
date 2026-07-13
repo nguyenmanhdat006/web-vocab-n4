@@ -119,9 +119,11 @@
       const pct = total ? Math.round((knownCount / total) * 100) : 0;
 
       const card = document.createElement("button");
-      card.className = "lesson-card";
+      card.className = `lesson-card cat-${activeCategory}`;
       card.innerHTML = `
-        <div class="num jp">${escapeHtml(lesson.id.toUpperCase())}</div>
+        <div class="lesson-card-top">
+          <span class="num-badge jp">${escapeHtml(lesson.id.toUpperCase())}</span>
+        </div>
         <div class="title">${escapeHtml(lesson.title)}</div>
         <div class="meta"><span>${total} ${activeCategory === "vocab" ? "từ" : "chữ"}</span><span>${knownCount}/${total} thuộc</span></div>
         <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>

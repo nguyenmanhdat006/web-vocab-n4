@@ -40,50 +40,82 @@ body {
   padding: 40px 20px 80px;
 }
 
-/* ---------- Header ---------- */
+/* ---------- Header (banner nổi bật) ---------- */
 header.top {
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  padding: 34px 32px 30px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--indigo-deep) 0%, var(--indigo) 75%);
+  box-shadow: 0 18px 40px rgba(27, 42, 56, 0.28);
+  color: #fff;
+}
+header.top::before {
+  /* chữ Kanji lớn mờ làm hoạ tiết nền */
+  content: "語彙";
+  position: absolute;
+  right: -18px;
+  top: -34px;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 150px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.07);
+  letter-spacing: -6px;
+  pointer-events: none;
 }
 header.top .eyebrow {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  padding: 12px 16px;
-  margin-bottom: 12px;
-  border-left: 4px solid var(--hanko);
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(179,58,58,0.08), rgba(200,155,60,0.08));
-  box-shadow: var(--shadow);
-  max-width: 100%;
-  color: var(--indigo-deep);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 16px;
+  border-left: 3px solid var(--gold);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 0 10px 10px 0;
+  margin-bottom: 18px;
+  width: fit-content;
+  position: relative;
+  z-index: 1;
 }
 header.top .eyebrow-jp {
   font-family: 'Shippori Mincho', serif;
-  font-size: 20px;
-  line-height: 1.2;
-  letter-spacing: 0.04em;
-  color: var(--hanko);
+  font-size: 15px;
+  color: var(--gold);
   font-weight: 700;
 }
 header.top .eyebrow-vi {
-  font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 14px;
-  line-height: 1.4;
-  letter-spacing: 0;
-  color: var(--ink-soft);
-  font-weight: 600;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.75);
+  font-style: italic;
+  border-left: 1px solid rgba(255, 255, 255, 0.25);
+  padding-left: 12px;
 }
 header.top h1 {
   font-family: 'Shippori Mincho', serif;
-  font-size: 34px;
-  margin: 10px 0 4px;
-  color: var(--indigo-deep);
+  font-size: 40px;
+  margin: 4px 0 8px;
+  color: #fff;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
 }
+header.top h1 span { color: rgba(255, 255, 255, 0.72) !important; }
 header.top p {
   margin: 0;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 15px;
+  position: relative;
+  z-index: 1;
+  max-width: 480px;
+}
+
+@media (max-width: 520px) {
+  header.top { padding: 26px 22px 24px; border-radius: 18px; }
+  header.top .eyebrow { flex-direction: column; align-items: flex-start; gap: 4px; }
+  header.top .eyebrow-vi { border-left: none; padding-left: 0; }
+  header.top::before { font-size: 100px; right: -10px; top: -20px; }
 }
 
 /* ---------- Panels ---------- */
@@ -94,6 +126,17 @@ header.top p {
   box-shadow: var(--shadow);
   padding: 28px;
   margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.panel::before {
+  /* dải màu mỏng phía trên mỗi panel, gợi cảm giác "trang sách" */
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--indigo) 0%, var(--gold) 55%, var(--hanko) 100%);
+  opacity: 0.85;
 }
 .panel-head {
   display: flex;
@@ -107,25 +150,19 @@ header.top p {
   color: var(--indigo-deep);
 }
 .panel-title {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 10px;
 }
 .level-badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, rgba(47,72,88,0.14), rgba(179,58,58,0.12));
-  border: 1px solid rgba(47,72,88,0.22);
-  color: var(--indigo-deep);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 10px rgba(34, 48, 63, 0.08);
+  font-family: 'Shippori Mincho', serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--indigo);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
 }
 .panel-head .back-link {
   background: none;
@@ -134,16 +171,20 @@ header.top p {
   font-size: 14px;
   cursor: pointer;
   font-family: inherit;
+  padding: 0;
+  transition: color .15s ease, transform .15s ease;
+  display: inline-block;
 }
-.panel-head .back-link:hover { color: var(--indigo); }
+.panel-head .back-link:hover { color: var(--indigo); transform: translateX(-2px); }
 
 /* ---------- Empty state ---------- */
 .empty {
   text-align: center;
-  padding: 40px 10px;
+  padding: 48px 10px;
   color: var(--ink-soft);
 }
-.empty .icon { font-size: 34px; margin-bottom: 10px; opacity: 0.5; }
+.empty .icon { font-size: 38px; margin-bottom: 12px; opacity: 0.55; }
+.empty div:last-child { font-size: 14px; max-width: 320px; margin: 0 auto; line-height: 1.6; }
 
 /* ---------- Lesson list ---------- */
 .lesson-grid {
@@ -153,25 +194,51 @@ header.top p {
 }
 .lesson-card {
   border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 18px;
+  border-radius: 14px;
+  padding: 16px 16px 16px 20px;
   cursor: pointer;
   background: var(--paper-raised);
   position: relative;
-  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  overflow: hidden;
+  transition: transform .18s cubic-bezier(.2,.8,.2,1), box-shadow .18s ease, border-color .18s ease;
   text-align: left;
 }
+.lesson-card::before {
+  /* thanh màu bên trái đặc trưng theo loại: Từ vựng (indigo) / Kanji (đỏ hanko) */
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg, var(--indigo), #4c7089);
+}
+.lesson-card.cat-kanji::before {
+  background: linear-gradient(180deg, var(--hanko), #d68d82);
+}
 .lesson-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(34, 48, 63, 0.14);
   border-color: var(--indigo);
 }
-.lesson-card .num {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 22px;
-  color: var(--indigo);
+.lesson-card.cat-kanji:hover { border-color: var(--hanko); }
+.lesson-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.lesson-card .title { font-weight: 600; margin-top: 4px; }
+.lesson-card .num-badge {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--indigo);
+  padding: 5px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.lesson-card.cat-kanji .num-badge { background: var(--hanko); }
+.lesson-card .title { font-weight: 700; font-size: 15px; color: var(--indigo-deep); }
 .lesson-card .meta {
   margin-top: 10px;
   font-size: 12px;
@@ -180,15 +247,16 @@ header.top p {
   justify-content: space-between;
 }
 .lesson-card .progress-bar {
-  height: 4px;
+  height: 6px;
   background: var(--line);
-  border-radius: 2px;
-  margin-top: 8px;
+  border-radius: 6px;
+  margin-top: 9px;
   overflow: hidden;
 }
 .lesson-card .progress-fill {
   height: 100%;
-  background: var(--matcha);
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--matcha), #86ab78);
 }
 
 /* ---------- Mode select ---------- */
@@ -216,32 +284,47 @@ header.top p {
 .seg {
   display: inline-flex;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 999px;
   overflow: hidden;
+  background: var(--paper);
+  padding: 4px;
 }
 .seg button {
   border: none;
-  background: var(--paper-raised);
-  padding: 8px 14px;
+  background: transparent;
+  border-radius: 999px;
+  padding: 9px 18px;
   font-size: 13.5px;
+  font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   color: var(--ink-soft);
+  transition: background .18s ease, color .18s ease, box-shadow .18s ease;
 }
+.seg button:hover:not(.active) { background: rgba(47, 72, 88, 0.08); }
 .seg button.active {
   background: var(--indigo);
   color: #fff;
+  box-shadow: 0 4px 10px rgba(47, 72, 88, 0.3);
 }
 
 .mode-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
+  align-items: stretch;
 }
 .mode-card {
   border-radius: 14px;
-  padding: 20px;
+  padding: 22px 20px;
   border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.mode-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(34, 48, 63, 0.10);
 }
 .mode-card.flash {
   background: #eef2f6;
@@ -251,40 +334,60 @@ header.top p {
   background: var(--matcha-soft);
   border-color: #c3d4b6;
 }
-.mode-card h3 {
-  margin: 0 0 6px;
-  font-size: 16px;
+.mode-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 8px rgba(34, 48, 63, 0.18);
+}
+.mode-card.flash .mode-icon { background: linear-gradient(135deg, var(--indigo), #3d6178); }
+.mode-card.quiz .mode-icon { background: linear-gradient(135deg, var(--matcha), #77995f); }
+.mode-card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+  color: var(--indigo-deep);
 }
 .mode-card p {
   font-size: 13.5px;
   color: var(--ink-soft);
   margin: 0 0 16px;
   line-height: 1.5;
+  flex-grow: 1;
 }
+.mode-card .btn { margin-top: auto; }
 .btn {
   border: none;
   border-radius: 10px;
-  padding: 11px 16px;
+  padding: 12px 16px;
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
   width: 100%;
   color: #fff;
-  transition: opacity .15s ease;
+  box-shadow: 0 2px 6px rgba(34, 48, 63, 0.14);
+  transition: opacity .15s ease, transform .1s ease, box-shadow .15s ease;
 }
-.btn:hover { opacity: 0.9; }
-.btn.indigo { background: var(--indigo); }
-.btn.matcha { background: var(--matcha); }
+.btn:hover { opacity: 0.92; box-shadow: 0 6px 14px rgba(34, 48, 63, 0.18); }
+.btn:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(34, 48, 63, 0.16); }
+.btn.indigo { background: linear-gradient(135deg, var(--indigo), #3d6178); }
+.btn.matcha { background: linear-gradient(135deg, var(--matcha), #77995f); }
 .btn.ghost {
   background: transparent;
   color: var(--ink-soft);
   border: 1px solid var(--line);
   width: auto;
+  box-shadow: none;
 }
+.btn.ghost:hover { background: rgba(34, 48, 63, 0.04); box-shadow: none; }
 
 /* ---------- Flashcard ---------- */
 .fc-progress {
@@ -588,4 +691,20 @@ header.top p {
 }
 .kanji-example-item .ex-meaning {
   color: var(--ink);
+}
+
+/* ---------- Polish: focus states & panel transition ---------- */
+button:focus-visible,
+.opt-btn:focus-visible,
+.lesson-card:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.panel:not(.hidden) {
+  animation: panelFadeIn .25s ease;
 }
