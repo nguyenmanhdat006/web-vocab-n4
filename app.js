@@ -15,6 +15,7 @@
   // State
   // ---------------------------------------------------------
   let activeCategory = "vocab"; // "vocab" | "kanji"
+  let activeLevel = "N4";       // "N5" | "N4"
   let currentLesson = null;     // bài đang chọn (vocab hoặc kanji)
 
   let fcOrder = [], fcIndex = 0;
@@ -82,6 +83,16 @@
   // ---------------------------------------------------------
   // VIEW 1: Danh sách bài (Từ vựng / Kanji)
   // ---------------------------------------------------------
+  document.getElementById("level-toggle").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-level]");
+    if (!btn) return;
+    activeLevel = btn.getAttribute("data-level");
+    document.querySelectorAll("#level-toggle button").forEach((b) =>
+      b.classList.toggle("active", b === btn)
+    );
+    renderLessonList();
+  });
+
   document.getElementById("category-toggle").addEventListener("click", (e) => {
     const btn = e.target.closest("button[data-cat]");
     if (!btn) return;
@@ -97,14 +108,13 @@
     const empty = document.getElementById("empty-lessons");
     grid.innerHTML = "";
 
-    const list = activeCategory === "vocab" ? LESSONS : KANJI_LESSONS;
+    const fullList = activeCategory === "vocab" ? LESSONS : KANJI_LESSONS;
+    const list = fullList.filter((lesson) => (lesson.level || "N4") === activeLevel);
 
     if (list.length === 0) {
       empty.classList.remove("hidden");
       document.getElementById("empty-text").textContent =
-        activeCategory === "vocab"
-          ? "Chưa có bài từ vựng nào. Thêm file vào data/lesson-*.js để bắt đầu."
-          : "Chưa có bài Kanji nào. Thêm file vào data/kanji-*.js để bắt đầu.";
+        `Chưa có bài ${activeCategory === "vocab" ? "từ vựng" : "Kanji"} nào ở cấp độ ${activeLevel}. Thêm file vào data/ với "level": "${activeLevel}" để bắt đầu.`;
       return;
     }
     empty.classList.add("hidden");
